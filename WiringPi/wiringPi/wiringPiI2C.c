@@ -227,7 +227,7 @@ int wiringPiI2CSetup (const int devId)
   if (rev == 1)
     device = "/dev/i2c-0" ;
   else
-    device = "/dev/i2c-1" ;
+    device = "/dev/i2c-3" ;
 
   return wiringPiI2CSetupInterface (device, devId) ;
 }
