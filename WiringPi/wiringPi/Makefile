@@ -24,6 +24,7 @@
 VERSION=$(shell cat ../VERSION)
 DESTDIR?=/usr
 PREFIX?=/local
+PLATFORM = "OrangePi_ZERO"
 
 LDCONFIG?=ldconfig
 
