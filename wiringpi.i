@@ -7,6 +7,8 @@
 #endif
 
 #include "WiringPi/wiringPi/wiringPi.h"
+#include "WiringPi/wiringPi/OrangePi.h"
+#include "WiringPi/wiringPi/oled.h"
 #include "WiringPi/wiringPi/wiringPiI2C.h"
 #include "WiringPi/wiringPi/wiringPiSPI.h"
 #include "WiringPi/wiringPi/wiringSerial.h"
