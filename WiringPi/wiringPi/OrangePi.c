@@ -1182,14 +1182,15 @@ const char *piModelNames[6] =
     "Model B",
     "Model B+",
     "Compute Module",
+    "OrangePi H3 family",
 #ifdef CONFIG_ORANGEPI_2G_IOT
 	"OrangePi 2G-IOT",
 #elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
 	"OrangePi H5 family",
 #elif CONFIG_ORANGEPI_WIN
 	"OrangePi Win/Winplus",
-#elif CONFIG_ORANGEPI_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H3
-	"OrangePi H3 family",
+//#elif CONFIG_ORANGEPI_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H3
+//	"OrangePi H3 family",
 #elif CONFIG_ORANGEPI_ZERO || CONFIG_ORANGEPI_R1
 	"OrangePi H2+ family",
 #endif
@@ -1850,6 +1851,7 @@ int isOrangePi(void)
 	FILE *cpuFd;
 	char line [120];
 	char *d;
+	char *OrangePi_string = "sun8i";
 #ifdef CONFIG_ORANGEPI_2G_IOT
 	/* Support: OrangePi 2G-IOT and OrangePi i96 */
 	char *OrangePi_string = "rda8810";
@@ -1859,9 +1861,9 @@ int isOrangePi(void)
 #elif CONFIG_ORANGEPI_WIN
 	/* Support: OrangePi Win/Win plus */
 	char *OrangePi_string = "sun50iw1";
-#elif CONFIG_ORANGEPI_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H3
+//#elif CONFIG_ORANGEPI_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H3
 	/* Support: OrangePi Win/Win plus */
-	char *OrangePi_string = "sun8i";
+//	char *OrangePi_string = "sun8i";
 #elif CONFIG_ORANGEPI_ZERO || CONFIG_ORANGEPI_R1
 	/* Support: OrangePi zero */
 	char *OrangePi_string = "sun8i";
@@ -1873,9 +1875,9 @@ int isOrangePi(void)
 	char *OrangePi_string = "rk3399";
 
 
-#else
+//#else
 	/* Non-support */
-	char *OrangePi_string = "none";
+//	char *OrangePi_string = "none";
 #endif
 
        //printf("OrangePi String is %s\n", OrangePi_string);
