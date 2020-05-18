@@ -24,6 +24,9 @@
 #ifndef	__WIRING_PI_H__
 #define	__WIRING_PI_H__
 
+#define CONFIG_ORANGEPI_ZEROPLUS2_H3
+#define CONFIG_ORANGEPI
+
 // C doesn't have true/false by default and I can never remember which
 //	way round they are, so ...
 //	(and yes, I know about stdbool.h but I like capitals for these and I'm old)
