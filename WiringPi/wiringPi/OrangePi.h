@@ -1,6 +1,9 @@
 #ifndef _ORANGEPI_H
 #define _ORANGEPI_H
 
+#define CONFIG_ORANGEPI_PC2
+#define CONFIG_ORANGEPI
+
 #ifdef CONFIG_ORANGEPI_2G_IOT
 /********** OrangePi 2G-IOT *************/
 /*
@@ -30,7 +33,8 @@
 
 #endif /* CONFIG_ORANGEPI_2G_IOT */
 
-#if CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
+//#if CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
+#ifdef CONFIG_ORANGEPI_PC2
 /************** OrangePi H5 ***********************/
 #define GPIOA_BASE                         (0x01C20000)
 #define GPIO_NUM                           (0x40)
@@ -180,7 +184,7 @@ extern unsigned int readR(unsigned int addr);
 extern void writeR(unsigned int val, unsigned int addr);
 extern int OrangePi_set_gpio_mode(int pin, int mode);
 extern int OrangePi_get_gpio_mode(int pin);
-extern int isOrangePi_2G_IOT(void);
+//extern int isOrangePi_2G_IOT(void);
 extern int isOrangePi(void);
 extern unsigned int readR(unsigned int addr);
 extern void writeR(unsigned int val, unsigned int addr);
@@ -201,10 +205,11 @@ extern void sunxi_pwm_set_act(int act_cys);
 extern const char *piModelNames[6];
 #endif
 
+extern int ORANGEPI_PIN_MASK[9][32];
 #ifdef CONFIG_ORANGEPI_2G_IOT
 extern int ORANGEPI_PIN_MASK[4][32];
-#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME
-extern int ORANGEPI_PIN_MASK[9][32];
+//#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_PRIME
+//extern int ORANGEPI_PIN_MASK[9][32];
 #elif CONFIG_ORANGEPI_WIN
 extern int ORANGEPI_PIN_MASK[12][32];
 #elif CONFIG_ORANGEPI_H3
