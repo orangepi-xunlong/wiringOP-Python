@@ -600,7 +600,7 @@ int ORANGEPI_PIN_MASK[9][32] =  //[BANK]  [INDEX]
 };
 #endif
 
-#if CONFIG_ORANGEPI_ZEROPLUS2_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H5
+#ifdef CONFIG_ORANGEPI_ZEROPLUS2_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H5
 int pinToGpioOrangePi [64] =
 {
   12, 11, 6, 0, 1, 352, 107, 353, 3,    // From the Original Wiki - GPIO 0 through 7:   wpi  0 -  7
@@ -1182,10 +1182,11 @@ const char *piModelNames[6] =
     "Model B",
     "Model B+",
     "Compute Module",
+    "OrangePi H5 family",
 #ifdef CONFIG_ORANGEPI_2G_IOT
 	"OrangePi 2G-IOT",
-#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
-	"OrangePi H5 family",
+//#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
+//	"OrangePi H5 family",
 #elif CONFIG_ORANGEPI_WIN
 	"OrangePi Win/Winplus",
 #elif CONFIG_ORANGEPI_H3 || CONFIG_ORANGEPI_ZEROPLUS2_H3
@@ -1850,12 +1851,13 @@ int isOrangePi(void)
 	FILE *cpuFd;
 	char line [120];
 	char *d;
+	char *OrangePi_string = "sun50iw2";
 #ifdef CONFIG_ORANGEPI_2G_IOT
 	/* Support: OrangePi 2G-IOT and OrangePi i96 */
 	char *OrangePi_string = "rda8810";
-#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
+//#elif CONFIG_ORANGEPI_PC2 || CONFIG_ORANGEPI_ZEROPLUS || CONFIG_ORANGEPI_ZEROPLUS2_H5 || CONFIG_ORANGEPI_PRIME
 	/* Support: OrangePi PC2 */
-	char *OrangePi_string = "sun50iw2";
+//	char *OrangePi_string = "sun50iw2";
 #elif CONFIG_ORANGEPI_WIN
 	/* Support: OrangePi Win/Win plus */
 	char *OrangePi_string = "sun50iw1";
@@ -1873,9 +1875,9 @@ int isOrangePi(void)
 	char *OrangePi_string = "rk3399";
 
 
-#else
+//#else
 	/* Non-support */
-	char *OrangePi_string = "none";
+//	char *OrangePi_string = "none";
 #endif
 
        //printf("OrangePi String is %s\n", OrangePi_string);
