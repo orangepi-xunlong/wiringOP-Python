@@ -25,6 +25,7 @@
 
 DESTDIR?=/usr
 PREFIX?=/local
+PLATFORM = OrangePi_RK3399
 
 ifneq ($V,1)
 Q ?= @

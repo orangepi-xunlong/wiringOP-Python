@@ -1850,6 +1850,7 @@ int isOrangePi(void)
 	FILE *cpuFd;
 	char line [120];
 	char *d;
+	char *OrangePi_string = "rk3399";
 #ifdef CONFIG_ORANGEPI_2G_IOT
 	/* Support: OrangePi 2G-IOT and OrangePi i96 */
 	char *OrangePi_string = "rda8810";
@@ -1868,14 +1869,14 @@ int isOrangePi(void)
 #elif CONFIG_ORANGEPI_LITE2 || CONFIG_ORANGEPI_3
 	/* Support: OrangePi zero */
 	char *OrangePi_string = "sun50iw6";
-#elif (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4)
+//#elif (defined CONFIG_ORANGEPI_RK3399 || defined CONFIG_ORANGEPI_4)
 	/* Support: OrangePi RK3399 */
-	char *OrangePi_string = "rk3399";
+//	char *OrangePi_string = "rk3399";
 
 
-#else
+//#else
 	/* Non-support */
-	char *OrangePi_string = "none";
+//	char *OrangePi_string = "none";
 #endif
 
        //printf("OrangePi String is %s\n", OrangePi_string);

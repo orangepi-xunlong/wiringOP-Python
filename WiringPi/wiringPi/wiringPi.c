@@ -775,7 +775,8 @@ int piGpioLayout (void)
       break ;
 
 	
-#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4
+//#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4
+#ifdef CONFIG_ORANGEPI_RK3399
   strcpy(line, "Hardware		 : Rockchip rk3399 Family");	
 #endif
 
@@ -793,7 +794,8 @@ int piGpioLayout (void)
 
   fclose (cpuFd) ;
 
-#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4
+//#if CONFIG_ORANGEPI_RK3399 || CONFIG_ORANGEPI_4
+#ifdef CONFIG_ORANGEPI_RK3399
 	  strcpy(line, "Revision  : 0000");
 #endif
 
