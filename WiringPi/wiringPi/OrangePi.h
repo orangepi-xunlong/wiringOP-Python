@@ -1,6 +1,9 @@
 #ifndef _ORANGEPI_H
 #define _ORANGEPI_H
 
+#define CONFIG_ORANGEPI_LITE2
+#define CONFIG_ORANGEPI
+
 #ifdef CONFIG_ORANGEPI_2G_IOT
 /********** OrangePi 2G-IOT *************/
 /*
@@ -67,7 +70,8 @@
 #endif
 
 /*********** OrangePi LITE2/OnePlus/PC3 *************/
-#if CONFIG_ORANGEPI_LITE2 || CONFIG_ORANGEPI_3
+//#if CONFIG_ORANGEPI_LITE2 || CONFIG_ORANGEPI_3
+#ifdef CONFIG_ORANGEPI_LITE2
 #define GPIOA_BASE                         (0x0300B000)
 #define GPIO_NUM                           (0x40)
 #define GPIO_BASE_MAP                      (0x0300B000)
@@ -180,7 +184,7 @@ extern unsigned int readR(unsigned int addr);
 extern void writeR(unsigned int val, unsigned int addr);
 extern int OrangePi_set_gpio_mode(int pin, int mode);
 extern int OrangePi_get_gpio_mode(int pin);
-extern int isOrangePi_2G_IOT(void);
+//extern int isOrangePi_2G_IOT(void);
 extern int isOrangePi(void);
 extern unsigned int readR(unsigned int addr);
 extern void writeR(unsigned int val, unsigned int addr);
