@@ -1,61 +1,101 @@
-Note
-~~~~
+#WiringPi for Python
 
-This is an unofficial port of Gordon's wiringPi library. Please do not
-email Gordon if you have issues, he will not be able to help.
+WiringPi: An implementation of most of the Arduino Wiring
+	functions for the Raspberry Pi
 
-wiringOP for Python
-===================
+WiringPi implements new functions for managing IO expanders.
 
-wiringOP: An implementation of most of the Arduino Wiring functions for
-the Orange Pi.
+##Testing
+Build with gcc version 4.6.3 (Debian 4.6.3-14+rpi1)
+Built against Python 3.9.2
 
-Manual Build
-============
+##Get/setup repo
+```bash
+git clone --recursive https://github.com/lanefu/WiringPi-Python-OP.git
+cd WiringPi-Python-OP
+```
 
-Get/setup repo
---------------
+##Prerequisites
+To rebuild the bindings
+you **must** first have python3-dev, python3-setuptools and swig installed.
+```bash
+sudo apt-get install python3-dev python3-setuptools swig
+```
 
-.. code:: bash
+##Build WiringPi
+```bash
+cd WiringPi
+sudo ./build
+```
 
-    git clone https://github.com/orangepi-xunlong/wiringOP-Python.git
-    cd wiringOP-Python
+##Build python package
+```bash
+cd WiringPi-Python-OP
+make
+sudo make install
+make test
+```
+##Detailed process for build python package
+###Generate Bindings
+```bash
+python3 generate-bindings.py > bindings.i
+swig -python wiringpi.i
+```
+###Build & install with
+```bash
+python3 setup.py clean --all
+sudo python3 setup.py build install
+```
 
-Prerequisites
--------------
+#Class-based Usage
+Description incoming!
 
-To rebuild the bindings you **must** first have installed ``swig``,
-``python-dev``, and ``python-setuptools`` (or their ``python3-``
-equivalents). wiringOP should also be installed system-wide for access
-to the ``gpio`` tool.
+##Usage
 
-.. code:: bash
+	import wiringpi
+	
+	wiringpi.wiringPiSetup() # For sequential pin numbering, one of these MUST be called before using IO functions
+	# OR
+	wiringpi.wiringPiSetupSys() # For /sys/class/gpio with GPIO pin numbering
+	# OR
+	wiringpi.wiringPiSetupGpio() # For GPIO pin numbering
 
-    sudo apt-get install python-dev python-setuptools swig python-pip
 
-Build & install with
---------------------
+Setting up IO expanders (This example was tested on a quick2wire board with one digital IO expansion board connected via I2C):
 
-``sudo python setup.py install``
-
-Or Python 3:
-
-``sudo python3 setup.py install``
-
-Usage
-=====
-
-.. code:: python
-
-    import wiringpi
-
-    # One of the following MUST be called before using IO functions:
-    wiringpi.wiringPiSetup()      # For sequential pin numbering
+	wiringpi.mcp23017Setup(65,0x20)
+	wiringpi.pinMode(65,1)
+	wiringpi.digitalWrite(65,1)
 
 **General IO:**
 
-.. code:: python
+	wiringpi.pinMode(6,1) # Set pin 6 to 1 ( OUTPUT )
+	wiringpi.digitalWrite(6,1) # Write 1 ( HIGH ) to pin 6
+	wiringpi.digitalRead(6) # Read pin 6
 
-    wiringpi.pinMode(6, 1)       # Set pin 6 to 1 ( OUTPUT )
-    wiringpi.digitalWrite(6, 1)  # Write 1 ( HIGH ) to pin 6
-    wiringpi.digitalRead(6)      # Read pin 6
+**Setting up a peripheral:**
+WiringPi2 supports expanding your range of available "pins" by setting up a port expander. The implementation details of
+your port expander will be handled transparently, and you can write to the additional pins ( starting from PIN_OFFSET >= 64 )
+as if they were normal pins on the Pi.
+
+	wiringpi.mcp23017Setup(PIN_OFFSET,I2C_ADDR)
+
+**Soft Tone**
+
+Hook a speaker up to your Pi and generate music with softTone. Also useful for generating frequencies for other uses such as modulating A/C.
+
+	wiringpi.softToneCreate(PIN)
+	wiringpi.softToneWrite(PIN,FREQUENCY)
+
+**Bit shifting:**
+
+	wiringpi.shiftOut(1,2,0,123) # Shift out 123 (b1110110, byte 0-255) to data pin 1, clock pin 2
+
+**Serial:**
+
+	serial = wiringpi.serialOpen('/dev/ttyAMA0',9600) # Requires device/baud and returns an ID
+	wiringpi.serialPuts(serial,"hello")
+	wiringpi.serialClose(serial) # Pass in ID
+
+**Full details at:**
+http://www.wiringpi.com
