@@ -1,8 +1,7 @@
-recursive-include WiringPi *.h
+graft wiringOP/wiringPi
+graft wiringOP/devLib
 include README.rst
 include LICENSE.txt
-include bindings.i
-include constants.py
-include wiringpi-class.py
-include wiringpi.i
+include setup.cfg
+include wiringpi.py
 include wiringpi_wrap.c
