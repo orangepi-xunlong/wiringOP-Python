@@ -8,7 +8,7 @@ clean:
 	rm -rf build dist wiringpi.egg-info
 	rm -rf wiringpi.py wiringpi_wrap.c
 
-install:
+install: bindings
 	sudo python3 setup.py install
 
 test:
