@@ -9,11 +9,6 @@ from glob import glob
 from subprocess import Popen, PIPE
 import re
 
-if not find_executable('pytest'):
-    print("Error:  please install pytest for running tests after build done\n"
-          "        you can try: pip install pytest\n")
-    sys.exit(1)
-
 sources = glob('wiringOP/devLib/*.c')
 sources += glob('wiringOP/wiringPi/*.c')
 sources += ['wiringpi.i']
@@ -57,12 +52,14 @@ boards = ["orangepir1", "orangepizero", "orangepizero-lts", "orangepipc", "orang
           "orangepi3", "orangepi3-lts", "orangepilite2", "orangepioneplus", "orangepi4", "orangepi4-lts", "orangepirk3399",
           "orangepi800", "orangepizero2", "orangepizero2-lts", "orangepizero2-b", "orangepir1plus-lts", "orangepir1plus"]
 
-if (output := cmdline('cat','/etc/orangepi-release')) != b'':
-    match = re.search(r"(?<=^BOARD=).*", output.decode("utf-8"), re.MULTILINE)
+inf_orangepi = cmdline('cat','/etc/orangepi-release')
+inf_armbian = cmdline('cat','/etc/armbian-release')
+if inf_orangepi != b'':
+    match = re.search(r"(?<=^BOARD=).*", inf_orangepi.decode("utf-8"), re.MULTILINE)
     if match == None: sys.exit(1) #something went wrong
     BOARD = match.group()
-elif (output := cmdline('cat','/etc/armbian-release')) != b'':
-    match = re.search(r"(?<=^BOARD=).*", output.decode("utf-8"), re.MULTILINE)
+elif inf_armbian != b'':
+    match = re.search(r"(?<=^BOARD=).*", inf_armbian.decode("utf-8"), re.MULTILINE)
     if match == None: sys.exit(1) #something went wrong
     BOARD = match.group()
     if BOARD == "orangepi-r1": EXTRA_CFLAGS = "orangepir1"
