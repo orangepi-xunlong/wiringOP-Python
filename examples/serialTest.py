@@ -1,8 +1,16 @@
 import wiringpi
 import sys
+import argparse
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument("--device", type=str, default="/dev/ttyS4", help='specify the serial node')
+args = parser.parse_args()
 
 wiringpi.wiringPiSetup()
-serial = wiringpi.serialOpen('/dev/ttyS5', 115200)
+serial = wiringpi.serialOpen(args.device, 115200)
+if serial < 0:
+    print("Unable to open serial device: %s"% args.device)
+    sys.exit(-1)
 
 for count in range(0, 256):
     try:

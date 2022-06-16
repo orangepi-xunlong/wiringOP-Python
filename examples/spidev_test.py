@@ -1,8 +1,12 @@
 import wiringpi
-channel = 1
-port = 0
-speed = 500000
-mode = 0
+import argparse
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument("--channel", type=int, default=1, help='specify the spi channel')
+parser.add_argument("--port", type=int, default=0, help='specify the spi port')
+parser.add_argument("--speed", type=int, default=500000, help='specify the spi speed')
+parser.add_argument("--mode", type=int, default=0, help='specify the spi mode')
+args = parser.parse_args()
 
 default_tx = [
         0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
@@ -25,11 +29,11 @@ def hexdump(src, line_size, prefix):
 
     return '\n'.join(result)
 
-print("spi mode: 0x%x" % mode);
-print("max speed: %d Hz (%d KHz)\n" %(speed, speed / 1000), end='');
+print("spi mode: 0x%x" % args.mode);
+print("max speed: %d Hz (%d KHz)\n" %(args.speed, args.speed / 1000), end='');
 
-wiringpi.wiringPiSPISetupMode(channel, port, speed, mode)
-revlen, recvData = wiringpi.wiringPiSPIDataRW(channel, bytes(default_tx))
+wiringpi.wiringPiSPISetupMode(args.channel, args.port, args.speed, args.mode)
+revlen, recvData = wiringpi.wiringPiSPIDataRW(args.channel, bytes(default_tx))
 
 print(hexdump(bytes(default_tx), 32, "TX"))
 print(hexdump(bytes(recvData), 32, "RX"))
