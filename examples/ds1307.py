@@ -59,49 +59,49 @@ def getYear():
 	YY = time.strftime("%Y")
 	return decCompensation(int(YY))
 
-def ds1302_write_byte(fd, reg, byte):
+def ds1307_write_byte(fd, reg, byte):
 	if wiringpi.wiringPiI2CWriteReg8(fd, reg, byte) < 0:
-		print("Error write byte to ds1302")
+		print("Error write byte to ds1307")
 		return -1
 	return 0
 
-def ds1302_read_byte(fd, reg):
+def ds1307_read_byte(fd, reg):
     byte = wiringpi.wiringPiI2CReadReg8(fd, reg)
     if byte < 0:
-        print("Error read byte from ds1302")
+        print("Error read byte from ds1307")
         return -1
     return byte
 
 def sys2rtcSet(fd):
-	ds1302_write_byte(fd, 0x02, getHours())
-	ds1302_write_byte(fd, 0x01, getMins())
-	ds1302_write_byte(fd, 0x00, getSecs())
-	ds1302_write_byte(fd, 0x03, getWeeks())
-	ds1302_write_byte(fd, 0x04, getDays())
-	ds1302_write_byte(fd, 0x05, getMons())
-	ds1302_write_byte(fd, 0x06, getYear())
+	ds1307_write_byte(fd, 0x02, getHours())
+	ds1307_write_byte(fd, 0x01, getMins())
+	ds1307_write_byte(fd, 0x00, getSecs())
+	ds1307_write_byte(fd, 0x03, getWeeks())
+	ds1307_write_byte(fd, 0x04, getDays())
+	ds1307_write_byte(fd, 0x05, getMons())
+	ds1307_write_byte(fd, 0x06, getYear())
 
 def read_register(fd):
-	byte = ds1302_read_byte(fd, 0x0)
+	byte = ds1307_read_byte(fd, 0x0)
 	if byte >> 7:
-		ds1302_write_byte(fd, 0x0, 0x0)
+		ds1307_write_byte(fd, 0x0, 0x0)
 	second = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10
 
-	byte = ds1302_read_byte(fd, 0x01)
+	byte = ds1307_read_byte(fd, 0x01)
 	minute = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10
 
-	byte = ds1302_read_byte(fd, 0x02)
+	byte = ds1307_read_byte(fd, 0x02)
 	hour = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10
 
-	week = ds1302_read_byte(fd, 0x03)
+	week = ds1307_read_byte(fd, 0x03)
 
-	byte = ds1302_read_byte(fd, 0x04)
+	byte = ds1307_read_byte(fd, 0x04)
 	day = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10
 
-	byte = ds1302_read_byte(fd, 0x05)
+	byte = ds1307_read_byte(fd, 0x05)
 	month = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10
 
-	byte = ds1302_read_byte(fd, 0x06)
+	byte = ds1307_read_byte(fd, 0x06)
 	year = operator.mod(byte, 16) + operator.floordiv(byte, 16) * 10 + 1970
 
 	if year == 2000 or month > 12 or month<1 or day < 1 or day > 31:
