@@ -70,13 +70,14 @@ else:
     print("All available boards:\n")
     cnt = 0
     for board in boards:
-        print("%4d. %s\n", cnt, board)
+        print("%4d. %s\n"%(cnt, board))
+        cnt+=1
     while True:
         choice = input("Choice: ")
         if choice == None or choice.isdigit() != True:
             continue
-        if 0 <= int(choice) <= 10:
-            BOARD = boards[choice]
+        if 0 <= int(choice) <= 30:
+            BOARD = boards[int(choice)]
             break
         print("Invalid input ...\n")
 
