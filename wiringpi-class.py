@@ -101,8 +101,6 @@ class GPIO(object):
   def piHiPri(self,*args):
     return piHiPri(*args)
 
-  def piBoardRev(self):
-    return piBoardRev()
   def wpiPinToGpio(self,*args):
     return wpiPinToGpio(*args)
   def setPadDrive(self,*args):
