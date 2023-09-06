@@ -10,6 +10,7 @@ from subprocess import Popen, PIPE
 import re
 
 sources = glob('wiringOP/devLib/*.c')
+sources += ['wiringOP/examples/blink.c']
 sources += glob('wiringOP/wiringPi/*.c')
 sources += ['wiringpi.i']
 sources += ['fixUndefFunc.c']

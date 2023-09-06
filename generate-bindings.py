@@ -2,6 +2,8 @@ HEADERS = []
 
 src = open("wiringpi.i").read().split('\n')
 
+print("extern unsigned char getGpioNum(void);")
+
 for line in src:
     line = line.strip()
     if line.startswith('#include') and line.endswith('.h"'):
