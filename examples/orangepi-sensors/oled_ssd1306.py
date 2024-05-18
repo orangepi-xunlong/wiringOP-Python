@@ -2,9 +2,15 @@ import sys
 import time
 import wiringpi
 from wiringpi import GPIO
+import argparse
 
+parser = argparse.ArgumentParser(description='i2c')
+parser.add_argument("--device", type=str, default="/dev/i2c-0", help='specify the i2c node')
+args = parser.parse_args()
 I2C_ADDR = 0x3c
-fd = 0
+
+print(f"Opening device '{args.device}' at address I2C_ADDR = '{hex(I2C_ADDR)}'")
+
 yi = [' ',' ',' ',' ']
 zi = [
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,#//0
@@ -272,7 +278,7 @@ def full_string(s):
 def main():
 	#init
 	wiringpi.wiringPiSetup()
-	fd = wiringpi.wiringPiI2CSetup(I2C_ADDR)
+	fd = wiringpi.wiringPiI2CSetupInterface(args.device,I2C_ADDR)
 	if not fd:
 		return False;
 	wiringpi.wiringPiI2CWriteReg8(fd, 0x00, 0xa1)
