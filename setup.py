@@ -50,7 +50,7 @@ boards = ["orangepir1", "orangepizero", "orangepizero-lts", "orangepipc", "orang
           "orangepiplus2e", "orangepione", "orangepioneh5", "orangepilite", "orangepiplus", "orangepizeroplus2h3",
           "orangepizeroplus", "orangepipc2", "orangepiprime", "orangepizeroplus2h5", "orangepiwin", "orangepiwinplus",
           "orangepi3", "orangepi3-lts", "orangepilite2", "orangepioneplus", "orangepi4", "orangepi4-lts", "orangepirk3399",
-          "orangepi800", "orangepizero2", "orangepizero2-lts", "orangepizero2-b", "orangepir1plus-lts", "orangepir1plus"]
+          "orangepi800", "orangepizero2", "orangepizero3", "orangepizero2-lts", "orangepizero2-b", "orangepir1plus-lts", "orangepir1plus"]
 
 inf_orangepi = cmdline('cat','/etc/orangepi-release')
 inf_armbian = cmdline('cat','/etc/armbian-release')
@@ -97,7 +97,7 @@ elif BOARD == "orangepiwinplus": BOARD = "orangepiwinplus-a64"
 elif BOARD == "orangepi3" or BOARD == "orangepi3-lts": BOARD = "orangepi3-h6"
 elif BOARD == "orangepilite2": BOARD = "orangepilite2-h6"
 elif BOARD == "orangepioneplus": BOARD = "orangepioneplus-h6"
-elif BOARD == "orangepizero2" or BOARD == "orangepizero2-lts" or BOARD == "orangepizero2-b": BOARD = "orangepizero2-h616"
+elif BOARD == "orangepizero2" or BOARD == "orangepizero3" or BOARD == "orangepizero2-lts" or BOARD == "orangepizero2-b": BOARD = "orangepizero2-h616"
 elif BOARD == "orangepir1plus" or BOARD == "orangepir1plus-lts": BOARD = "orangepir1plus-rk3328"
 
 if BOARD == "": BOARD = "orangepioneplus-h6"
